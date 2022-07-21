@@ -35,7 +35,8 @@ fun LoginScreen(navController: NavController,viewModel: LoginScreenViewModel= an
         mutableStateOf(value = true)
     }
 
-    Surface(modifier = Modifier.fillMaxSize() ) {
+    Surface(modifier = Modifier.fillMaxSize().background(Color.Magenta) ) {
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
