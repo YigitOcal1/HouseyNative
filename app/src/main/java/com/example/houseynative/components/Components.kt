@@ -1,26 +1,30 @@
 package com.example.houseynative.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
 fun PasswordInput(modifier: Modifier,
@@ -97,3 +101,42 @@ fun InputField(modifier: Modifier = Modifier, valueState: MutableState<String>,
         keyboardOptions = KeyboardOptions(keyboardType=keyboardType, imeAction = imeAction)
 
     )}
+@Composable
+fun TitleSection(modifier: Modifier = Modifier, label: String) {
+
+    Surface(modifier = modifier.padding(start = 6.dp, top = 1.dp)) {
+        Column {
+            Text(
+                text = label,
+                fontSize = 20.sp,
+                fontStyle = FontStyle.Normal,
+                textAlign = TextAlign.Left
+            )
+        }
+    }
+}
+@Composable
+fun HouseyAppBar(title: String, showProfile: Boolean = true, navController: NavController) {
+    TopAppBar(title = {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            if (showProfile) {
+                //custom image eklemek için
+                //Image(painter = painterResource(id = R.drawable.), contentDescription ="" )
+                Icon(
+                    imageVector = Icons.Default.PlayArrow, contentDescription = "housey logo",
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(14.dp))
+                )
+            }
+            Text(
+                text = title,
+                color = Color(0xFF232946),
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp
+                ),
+
+                )
+        }
+    }, actions = {}, backgroundColor = Color.Transparent, elevation = 0.dp)
+}
