@@ -54,7 +54,7 @@ fun HomeScreen(navController: NavController) {
             HouseyAppBar(title = "Housey", navController = navController)
         }, floatingActionButton = {
             FloatingActionButtonContent {
-            navController.navigate(HouseyScreens.SearchActivityScreen.name)
+            navController.navigate(HouseyScreens.CreateActivityScreen.name)
             }
         }, bottomBar = { BottomNavigationBar(navController = navController) }
         ) {
@@ -87,7 +87,7 @@ fun FloatingActionButtonContent(onTap: () -> Unit) {
         backgroundColor = Color(0xFF232946)
     ) {
         Icon(
-            imageVector = Icons.Default.Search,
+            imageVector = Icons.Default.Add,
             contentDescription = "Aktivite arama",
             tint = MaterialTheme.colors.onPrimary
         )
