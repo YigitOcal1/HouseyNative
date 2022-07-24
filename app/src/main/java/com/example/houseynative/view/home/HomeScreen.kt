@@ -35,6 +35,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.houseynative.R
+import com.example.houseynative.components.BottomNavigationBar
 import com.example.houseynative.components.HouseyAppBar
 import com.example.houseynative.components.TitleSection
 import com.example.houseynative.model.ActivityModel
@@ -55,7 +56,8 @@ fun HomeScreen(navController: NavController) {
             FloatingActionButtonContent {
             navController.navigate(HouseyScreens.SearchActivityScreen.name)
             }
-        }) {
+        }, bottomBar = { BottomNavigationBar(navController = navController) }
+        ) {
             Surface(modifier = Modifier.fillMaxSize()) {
                 HomePageContent(navController = navController)
             }

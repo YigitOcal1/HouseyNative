@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.example.houseynative.components.BottomNavigationBar
 import com.example.houseynative.components.HouseyAppBar
 import com.example.houseynative.components.InputField
 import com.example.houseynative.model.ActivityModel
@@ -48,7 +49,7 @@ fun SearchActivityScreen(navController: NavController) {
         ) {
             navController.navigate(HouseyScreens.HomeScreen.name)
         }
-    }) {
+    }, bottomBar = { BottomNavigationBar(navController = navController) }) {
         Surface() {
             Column {
                 SearchForm(
