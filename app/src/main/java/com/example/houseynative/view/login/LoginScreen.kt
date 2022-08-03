@@ -1,5 +1,6 @@
 package com.example.houseynative.view.login
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.font.FontWeight
@@ -45,15 +47,21 @@ fun LoginScreen(navController: NavController,viewModel: LoginScreenViewModel= an
                 text = "Housey",
                 style = MaterialTheme.typography.h3,
                 color = Color.Blue.copy(alpha = 0.5f)
+
             )
+
             if (showLoginForm.value) {
                 UserForm(loading = false, isCreateAccount = false) { email, password ->
                     //firebase
                     viewModel.logIn(email = email, password = password) {
+
                         navController.navigate((HouseyScreens.HomeScreen.name))
                     }
+
                 }
-            } else {
+
+            }
+            else {
                 UserForm(loading = false, isCreateAccount = true) { email, password ->
                     viewModel.createUserWithEmailAndPassword(email = email, password = password) {
                         navController.navigate(HouseyScreens.HomeScreen.name)
@@ -80,7 +88,7 @@ fun LoginScreen(navController: NavController,viewModel: LoginScreenViewModel= an
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                val text = if (showLoginForm.value) "Register" else "Login"
+                val text = if (showLoginForm.value) "Kayıt ol" else "Giriş yap"
                 Text(text,
                     modifier = Modifier
                         .clickable {
@@ -130,7 +138,7 @@ fun UserForm(loading:Boolean=false,
         })
         PasswordInput(modifier=Modifier.focusRequester(passwordFocusRequest),
             passwordState=password,
-            labelId="Password",
+            labelId="Şifre",
             enabled=!loading,
             passwordVisibility=passwordVisibility,
             onAction= KeyboardActions {

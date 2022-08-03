@@ -17,7 +17,7 @@ const val ACTIVITIES_COLLECTION_REF = "activities"
 
 class ActivityRepository() {
 
-    val user = Firebase.auth.currentUser
+    fun user() = Firebase.auth.currentUser
 
     fun hasUser(): Boolean = Firebase.auth.currentUser != null
 

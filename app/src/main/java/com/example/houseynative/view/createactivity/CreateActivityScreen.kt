@@ -52,6 +52,7 @@ fun CreateActivityScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
                     TODO("aktivite ekleme fonksiyonu")
+
                 }, modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth(), shape = RectangleShape) {
@@ -83,39 +84,39 @@ fun CreateActivityForm(
 
         }
 
-        InputField(valueState = searchQueryState,
+        InputField(valueState = titleQueryState,
             labelId = "Başlık",
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(searchQueryState.value.trim())
+                onCreateActivity(titleQueryState.value.trim())
                 titleQueryState.value = ""
                 keyboardController?.hide()
             })
-        InputField(valueState = searchQueryState,
+        InputField(valueState = dateQueryState,
             labelId = "Tarih",
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(searchQueryState.value.trim())
+                onCreateActivity(dateQueryState.value.trim())
                 dateQueryState.value = ""
                 keyboardController?.hide()
             })
-        InputField(valueState = searchQueryState,
+        InputField(valueState = locationQueryState,
             labelId = "Konum",
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(searchQueryState.value.trim())
+                onCreateActivity(locationQueryState.value.trim())
                 locationQueryState.value = ""
                 keyboardController?.hide()
             })
-        InputField(valueState = searchQueryState,
+        InputField(valueState = maxpeopleQueryState,
             labelId = "Maksimum katılabilecek kişi sayısı",
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(searchQueryState.value.trim())
+                onCreateActivity(maxpeopleQueryState.value.trim())
                 maxpeopleQueryState.value = ""
                 keyboardController?.hide()
             })

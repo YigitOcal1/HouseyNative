@@ -1,5 +1,7 @@
 package com.example.houseynative.viewmodel
 
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseynative.model.UserModel
@@ -42,6 +44,7 @@ private fun  createUser(displayName:String?){
                     task->
                     if (task.isSuccessful){
                         home()
+
                     }
                     else{
                         print("Giriş işlemi başarısız")
