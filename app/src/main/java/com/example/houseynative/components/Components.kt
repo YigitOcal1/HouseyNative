@@ -3,6 +3,7 @@ package com.example.houseynative.components
 import android.widget.Space
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -209,5 +210,33 @@ fun BottomNavigationBar(navController: NavController){
                 },
             )
         }
+    }
+}
+@Composable
+fun SubmitButton(textId: String, loading: Boolean, validinputs: Boolean,onClick:()->Unit) {
+
+    Button(onClick = onClick,
+        modifier = Modifier
+            .padding(3.dp)
+            .fillMaxWidth(),
+        enabled = !loading&&validinputs,
+        shape= CircleShape
+    ) {
+        if(loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
+        else Text(text = textId, modifier = Modifier.padding(5.dp))
+    }
+}
+@Composable
+fun SubmitButtonActivity(textId: String, loading: Boolean, validinputs: Boolean,onClick:()->Unit) {
+
+    Button(onClick = onClick,
+        modifier = Modifier
+            .padding(3.dp)
+            .fillMaxWidth(),
+
+        shape= CircleShape
+    ) {
+        if(loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
+        else Text(text = textId, modifier = Modifier.padding(5.dp))
     }
 }

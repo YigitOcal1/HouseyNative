@@ -18,15 +18,18 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.houseynative.components.BottomNavigationBar
-import com.example.houseynative.components.HouseyAppBar
-import com.example.houseynative.components.InputField
+import com.example.houseynative.components.*
 import com.example.houseynative.navigation.HouseyScreens
 import com.example.houseynative.view.searchactivity.ActivityList
 import com.example.houseynative.view.searchactivity.SearchForm
+import com.example.houseynative.viewmodel.CreateActivityScreenViewModel
+import com.example.houseynative.viewmodel.LoginScreenViewModel
 
 @Composable
-fun CreateActivityScreen(navController: NavController) {
+fun CreateActivityScreen(
+    navController: NavController,
+    viewModel: CreateActivityScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
 
 
     Scaffold(
@@ -47,17 +50,19 @@ fun CreateActivityScreen(navController: NavController) {
 
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(14.dp)
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    TODO("aktivite ekleme fonksiyonu")
+                        .padding(14.dp),
+                    loading = false,
+                ) { title, date, location, maxpeople ->
+                    viewModel.createActivity(
+                        title = title,
+                        date = date,
+                        location = location,
+                        maxPeople = maxpeople,
 
-                }, modifier = Modifier
-                    .padding(4.dp)
-                    .fillMaxWidth(), shape = RectangleShape) {
-                    Text(text = "Aktivite Oluştur")
+                    )
                 }
+                Spacer(modifier = Modifier.height(16.dp))
+
             }
         }
     }
@@ -70,7 +75,7 @@ fun CreateActivityScreen(navController: NavController) {
 fun CreateActivityForm(
     modifier: Modifier = Modifier, loading: Boolean = false,
     hint: String = "Aktivite Oluştur",
-    onCreateActivity: (String) -> Unit = {}
+    onCreateActivity: (String, String, String, String) -> Unit = { title, date, location, maxpeople -> }
 ) {
     Column {
         val searchQueryState = rememberSaveable { mutableStateOf("") }
@@ -81,6 +86,10 @@ fun CreateActivityForm(
         val keyboardController = LocalSoftwareKeyboardController.current
         val valid = remember(searchQueryState.value) {
             searchQueryState.value.trim().isNotEmpty()
+            titleQueryState.value.trim().isNotEmpty()
+            dateQueryState.value.trim().isNotEmpty()
+            locationQueryState.value.trim().isNotEmpty()
+            maxpeopleQueryState.value.trim().isNotEmpty()
 
         }
 
@@ -89,7 +98,7 @@ fun CreateActivityForm(
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(titleQueryState.value.trim())
+                //onCreateActivity(titleQueryState.value.trim())
                 titleQueryState.value = ""
                 keyboardController?.hide()
             })
@@ -98,7 +107,7 @@ fun CreateActivityForm(
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(dateQueryState.value.trim())
+                //onCreateActivity(dateQueryState.value.trim())
                 dateQueryState.value = ""
                 keyboardController?.hide()
             })
@@ -107,7 +116,7 @@ fun CreateActivityForm(
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(locationQueryState.value.trim())
+                //onCreateActivity(locationQueryState.value.trim())
                 locationQueryState.value = ""
                 keyboardController?.hide()
             })
@@ -116,10 +125,28 @@ fun CreateActivityForm(
             enabled = true,
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
-                onCreateActivity(maxpeopleQueryState.value.trim())
+                // onCreateActivity(
+                //titleQueryState.value.trim(),
+                //dateQueryState.value.trim(),
+                //locationQueryState.value.trim(),
+                //maxpeopleQueryState.value.trim()
+                //)
                 maxpeopleQueryState.value = ""
                 keyboardController?.hide()
             })
+        SubmitButtonActivity(
+            textId = "aktivite oluştur",
+            loading = loading,
+            validinputs = valid
+        ) {
+            onCreateActivity(
+                titleQueryState.value.trim(),
+                dateQueryState.value.trim(),
+                locationQueryState.value.trim(),
+                maxpeopleQueryState.value.trim()
+            )
+            keyboardController?.hide()
+        }
 
     }
 }

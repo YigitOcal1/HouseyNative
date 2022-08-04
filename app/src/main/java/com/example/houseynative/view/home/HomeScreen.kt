@@ -98,10 +98,10 @@ fun FloatingActionButtonContent(onTap: () -> Unit) {
 @Composable
 fun HomePageContent(navController: NavController) {
     val listofActivities = listOf(
-        ActivityModel("qwewq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
-        ActivityModel("ewqqwewq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
-        ActivityModel("qweqdwqdwq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
-        ActivityModel("qwezcxzczxwq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
+        ActivityModel("qwewq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
+        ActivityModel("ewqqwewq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
+        ActivityModel("qweqdwqdwq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
+        ActivityModel("qwezcxzczxwq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
 
         )
     val email = FirebaseAuth.getInstance().currentUser?.email
@@ -172,7 +172,7 @@ fun HorizontalScrollableComponent(
 @Preview
 @Composable
 fun ListCard(
-    activity: ActivityModel = ActivityModel("asd", "asd", "sdafas", "qweq", 22, "wefd"),
+    activity: ActivityModel = ActivityModel("asd", "asd", "sdafas", "qweq", "22", "wefd"),
     onPressDetails: (String) -> Unit = {}
 ) {
 
@@ -240,7 +240,7 @@ fun ListCard(
                 fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = activity.ownername.toString(),
+                text = activity.ownerName.toString(),
                 modifier = Modifier.padding(2.dp),
                 style = MaterialTheme.typography.caption
             )

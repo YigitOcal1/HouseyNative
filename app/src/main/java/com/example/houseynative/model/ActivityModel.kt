@@ -1,10 +1,24 @@
 package com.example.houseynative.model
 
 data class ActivityModel(
-    var id: String? = null,
-    var title: String? = null,
-    var date: String? = null,
-    var location: String? = null,
-    var maxpeople: Int? = null,
-    var ownername: String? = null
-)
+    val id: String?,
+    val title: String,
+    val date: String,
+    val location: String,
+    val maxPeople: String,
+    val ownerName: String
+
+
+) {
+    fun toMap(): MutableMap<String, Any> {
+        return mutableMapOf(
+            "title" to this.title,
+            "date" to this.date,
+            "location" to this.location,
+            "maxpeople" to this.maxPeople.toString(),
+            "ownername" to this.ownerName
+
+        )
+    }
+}
+

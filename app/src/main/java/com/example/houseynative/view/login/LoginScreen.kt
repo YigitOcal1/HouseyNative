@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.houseynative.components.EmailInput
 import com.example.houseynative.components.PasswordInput
+import com.example.houseynative.components.SubmitButton
 import com.example.houseynative.navigation.HouseyScreens
 import com.example.houseynative.viewmodel.LoginScreenViewModel
 
@@ -156,16 +157,3 @@ fun UserForm(loading:Boolean=false,
     }
 }
 
-@Composable
-fun SubmitButton(textId: String, loading: Boolean, validinputs: Boolean,onClick:()->Unit) {
-
-    Button(onClick = onClick,
-        modifier = Modifier
-            .padding(3.dp)
-            .fillMaxWidth(),
-        enabled = !loading&&validinputs,
-        shape= CircleShape) {
-        if(loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
-        else Text(text = textId, modifier = Modifier.padding(5.dp))
-    }
-}

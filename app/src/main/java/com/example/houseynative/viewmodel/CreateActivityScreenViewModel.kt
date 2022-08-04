@@ -1,28 +1,67 @@
-package com.example.houseynative.repository
+package com.example.houseynative.viewmodel
 
+import androidx.lifecycle.ViewModel
 import com.example.houseynative.model.ActivityModel
+import com.example.houseynative.model.UserModel
+import com.example.houseynative.repository.ACTIVITIES_COLLECTION_REF
+import com.example.houseynative.repository.ActivityRepository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 
-
 const val ACTIVITIES_COLLECTION_REF = "activities"
 
-class ActivityRepository() {
 
-    fun user() = Firebase.auth.currentUser
+class CreateActivityScreenViewModel(
+    private val repository: ActivityRepository = ActivityRepository(),
+) : ViewModel() {
 
-    fun hasUser(): Boolean = Firebase.auth.currentUser != null
 
-    fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
 
+    private val auth: FirebaseAuth = Firebase.auth
+    val user = repository.user()
+
+    val hasUser: Boolean get() = repository.hasUser()
+
+    private val userId: String get() = repository.getUserId()
+    val userName = auth.currentUser?.email?.split("@")?.get(0)
+
+     fun createActivity(
+        title: String?,
+        date: String?,
+        location: String?,
+        maxPeople: String?
+        //ownerName: String?
+    ) {
+         val documentId=activitiesRef.document().id
+        val userId = auth.currentUser?.uid
+        val activity = ActivityModel(
+            id = documentId,
+            title = title.toString(),
+            date = date.toString(),
+            location = location.toString(),
+            maxPeople = maxPeople.toString(),
+            ownerName = userName.toString()
+        )
+         activitiesRef.document(documentId).set(activity)
+        //FirebaseFirestore.getInstance().collection("activities").add(activity)
+    }
+
+    fun loadActivities() {
+        if (hasUser) {
+            if (userId.isNotBlank()) {
+                repository.getUserActivities(userId)
+            }
+        } else {
+            Throwable(message = "Kullanıcı bulunamadı")
+        }
+    }
     private val activitiesRef: CollectionReference =
         Firebase.firestore.collection((ACTIVITIES_COLLECTION_REF))
 
@@ -75,12 +114,12 @@ class ActivityRepository() {
         title: String,
         date: String,
         location: String,
-        maxpeople: String,
-        ownername: String,
+        maxPeople: String,
+
         onComplete:(Boolean)-> Unit,
     ) {
-            val documentId=activitiesRef.document().id
-            val activity=ActivityModel(id=documentId,title,date,location,maxpeople,ownername)
+        val documentId=activitiesRef.document().id
+        val activity=ActivityModel(id=documentId,title,date,location,maxPeople,userName.toString())
         activitiesRef.document(documentId).set(activity).addOnCompleteListener {
                 result -> onComplete.invoke(result.isSuccessful)
         }
@@ -98,7 +137,6 @@ class ActivityRepository() {
     fun updateActivity(){
 
     }
-
 }
 
 

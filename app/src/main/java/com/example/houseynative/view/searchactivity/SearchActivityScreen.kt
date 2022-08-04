@@ -73,10 +73,10 @@ fun SearchActivityScreen(navController: NavController) {
 @Composable
 fun ActivityList(navController: NavController) {
     val listofActivities = listOf(
-        ActivityModel("qwewq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
-        ActivityModel("ewqqwewq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
-        ActivityModel("qweqdwqdwq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
-        ActivityModel("qwezcxzczxwq", "deneme", "1231", "asdadqewq", 1, "qwewqdas"),
+        ActivityModel("qwewq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
+        ActivityModel("ewqqwewq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
+        ActivityModel("qweqdwqdwq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
+        ActivityModel("qwezcxzczxwq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
 
         )
     LazyColumn(
@@ -107,8 +107,8 @@ fun ActivityRow(activity: ActivityModel, navController: NavController) {
                 Text(text = activity.title.toString(), overflow = TextOverflow.Ellipsis)
                 Text(text = activity.date.toString(), overflow = TextOverflow.Ellipsis)
                 Text(text = activity.location.toString(), overflow = TextOverflow.Ellipsis)
-                Text(text = activity.maxpeople.toString(), overflow = TextOverflow.Ellipsis)
-                Text(text = activity.ownername.toString(), overflow = TextOverflow.Ellipsis)
+                Text(text = activity.maxPeople.toString(), overflow = TextOverflow.Ellipsis)
+                Text(text = activity.ownerName.toString(), overflow = TextOverflow.Ellipsis)
 
             }
         }
