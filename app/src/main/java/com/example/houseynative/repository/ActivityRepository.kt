@@ -1,21 +1,25 @@
 package com.example.houseynative.repository
 
+import com.example.houseynative.data.ResourcesOrException
 import com.example.houseynative.model.ActivityModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
 const val ACTIVITIES_COLLECTION_REF = "activities"
 
-class ActivityRepository() {
+@Singleton
+class ActivityRepository @Inject constructor(
+    private var activitiesQuery: Query
+) {
 
     fun user() = Firebase.auth.currentUser
 
@@ -26,34 +30,25 @@ class ActivityRepository() {
     private val activitiesRef: CollectionReference =
         Firebase.firestore.collection((ACTIVITIES_COLLECTION_REF))
 
+    fun getActivityListFromFirestore(searchText: String) = callbackFlow {
 
-    fun getUserActivities(
-        userId: String
-    ): kotlinx.coroutines.flow.Flow<Resources<List<ActivityModel>>> = callbackFlow {
-
-        var snapshotStateListener: ListenerRegistration? = null
-
-        try {
-            snapshotStateListener =
-                activitiesRef.orderBy("date").whereEqualTo("ownername", userId)
-                    .addSnapshotListener { snapshot, e ->
-                        val response = if (snapshot != null) {
-                            val activities = snapshot.toObjects(ActivityModel::class.java)
-                            Resources.Success(data = activities)
-                        } else {
-                            Resources.Error(throwable = e?.cause)
-                        }
-                        trySend(response)
-                    }
-        } catch (e: Exception) {
-            trySend(Resources.Error(e.cause))
-            e.printStackTrace()
+        if (searchText.isNotEmpty()) {
+            activitiesQuery = activitiesQuery.startAt(searchText).endAt("$searchText\uf8ff")
         }
-        awaitClose {
-            snapshotStateListener?.remove()
+        val snapshotListener = activitiesQuery.addSnapshotListener { snapshot, e ->
+            val response = if (snapshot != null) {
+                val activitiesList = snapshot.toObjects(ActivityModel::class.java)
+
+            } else {
+
+            }
+
         }
+
 
     }
+
+
 
     fun getActivities(
         activityId: String,
@@ -77,16 +72,16 @@ class ActivityRepository() {
         location: String,
         maxpeople: String,
         ownername: String,
-        onComplete:(Boolean)-> Unit,
+        onComplete: (Boolean) -> Unit,
     ) {
-            val documentId=activitiesRef.document().id
-            val activity=ActivityModel(id=documentId,title,date,location,maxpeople,ownername)
-        activitiesRef.document(documentId).set(activity).addOnCompleteListener {
-                result -> onComplete.invoke(result.isSuccessful)
+        val documentId = activitiesRef.document().id
+        val activity = ActivityModel(id = documentId, title, date, location, maxpeople, ownername)
+        activitiesRef.document(documentId).set(activity).addOnCompleteListener { result ->
+            onComplete.invoke(result.isSuccessful)
         }
     }
 
-    fun deleteActivity(activityId:String,onComplete:(Boolean)-> Unit){
+    fun deleteActivity(activityId: String, onComplete: (Boolean) -> Unit) {
 
         activitiesRef.document(activityId)
             .delete().addOnCompleteListener {
@@ -95,18 +90,8 @@ class ActivityRepository() {
 
     }
 
-    fun updateActivity(){
+    fun updateActivity() {
 
     }
-
-}
-
-
-sealed class Resources<T>(val data: T? = null, val throwable: Throwable? = null) {
-
-
-    class Loading<T> : Resources<T>()
-    class Success<T>(data: T?) : Resources<T>(data = data)
-    class Error<T>(throwable: Throwable?) : Resources<T>(throwable = throwable)
 
 }
