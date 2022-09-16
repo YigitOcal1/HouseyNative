@@ -15,8 +15,8 @@ data class ActivityModel(
             "title" to this.title,
             "date" to this.date,
             "location" to this.location,
-            "maxpeople" to this.maxPeople.toString(),
-            "ownername" to this.ownerName
+            "maxPeople" to this.maxPeople,
+            "ownerName" to this.ownerName
 
         )
     }
