@@ -30,9 +30,6 @@ class ActivityRepositoryImpl @Inject constructor(
 
     fun user() = Firebase.auth.currentUser
 
-    fun hasUser(): Boolean = Firebase.auth.currentUser != null
-
-    fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
     override fun getActivitiesFromFirestore() = callbackFlow {
         val snapshotListener = activitiesRef.orderBy("title").addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
@@ -84,5 +81,5 @@ class ActivityRepositoryImpl @Inject constructor(
         }
     }
 
-
 }
+
