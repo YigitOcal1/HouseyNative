@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 typealias Activities = List<ActivityModel>
 typealias ActivitiesResponse = Response<Activities>
+typealias AddActivityResponse=Response<Boolean>
+typealias DeleteActivityResponse=Response<Boolean>
 
 interface ActivityRepository {
     fun getActivitiesFromFirestore(): Flow<ActivitiesResponse>
@@ -17,9 +19,9 @@ interface ActivityRepository {
         location: String,
         maxPeople: String,
         ownerName: String?
-    ): Flow<Response<Void?>>
+    ): Flow<AddActivityResponse>
 
-    fun deleteActivityFromFirestore(activityId: String): Flow<Response<Void?>>
+    fun deleteActivityFromFirestore(activityId: String): Flow<DeleteActivityResponse>
 
 
 }

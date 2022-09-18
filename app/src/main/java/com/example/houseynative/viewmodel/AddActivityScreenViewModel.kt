@@ -9,6 +9,9 @@ import com.example.houseynative.domain.use_case.UseCases
 import com.example.houseynative.model.ActivityModel
 import com.example.houseynative.model.Response
 import com.example.houseynative.model.Response.*
+import com.example.houseynative.repository.ActivitiesResponse
+import com.example.houseynative.repository.AddActivityResponse
+import com.example.houseynative.repository.DeleteActivityResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -20,13 +23,13 @@ class AddActivityScreenViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
 
-    var activitiesResponse by mutableStateOf<Response<List<ActivityModel>>>(Loading)
+    var activitiesResponse by mutableStateOf<ActivitiesResponse>(Loading)
         private set
 
-    var addActivityResponse by mutableStateOf<Response<Void?>>(Success(null))
+    var addActivityResponse by mutableStateOf<AddActivityResponse>(Success(false))
         private set
 
-    var deleteActivityResponse by mutableStateOf<Response<Void?>>(Success(null))
+    var deleteActivityResponse by mutableStateOf<DeleteActivityResponse>(Success(false))
         private set
 
     var openDialog by mutableStateOf(false)

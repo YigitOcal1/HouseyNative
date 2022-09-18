@@ -32,13 +32,13 @@ class ActivityRepositoryImpl @Inject constructor(
 
     override fun getActivitiesFromFirestore() = callbackFlow {
         val snapshotListener = activitiesRef.orderBy("title").addSnapshotListener { snapshot, e ->
-            val response = if (snapshot != null) {
+            val activitiesResponse = if (snapshot != null) {
                 val activities = snapshot.toObjects(ActivityModel::class.java)
                 Success(activities)
             } else {
                 Failure(e)
             }
-            trySend(response).isSuccess
+            trySend(activitiesResponse).isSuccess
         }
         awaitClose {
             snapshotListener.remove()
@@ -64,8 +64,8 @@ class ActivityRepositoryImpl @Inject constructor(
                 ownerName = Firebase.auth.currentUser?.uid.toString()
 
             )
-            val addition = activitiesRef.document(id).set(activity).await()
-            emit(Success(addition))
+            activitiesRef.document(id).set(activity).await()
+            emit(Success(true))
         } catch (e: Exception) {
             emit(Failure(e))
         }
@@ -74,8 +74,8 @@ class ActivityRepositoryImpl @Inject constructor(
     override fun deleteActivityFromFirestore(activityId: String) = flow {
         try {
             emit(Loading)
-            val deletion = activitiesRef.document(activityId).delete().await()
-            emit(Success(deletion))
+            activitiesRef.document(activityId).delete().await()
+            emit(Success(true))
         } catch (e: Exception) {
             emit(Failure(e))
         }
