@@ -53,6 +53,7 @@ class ActivityRepositoryImpl @Inject constructor(
         ownerName: String?
     ) = flow {
         try {
+
             emit(Loading)
             val id = activitiesRef.document().id
             val activity = ActivityModel(

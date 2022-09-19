@@ -2,10 +2,8 @@ package com.example.houseynative.di
 
 import com.example.houseynative.domain.use_case.*
 import com.example.houseynative.domain.use_case.UseCases
-import com.example.houseynative.repository.ActivityRepository
-import com.example.houseynative.repository.ActivityRepositoryImpl
-import com.example.houseynative.repository.SearchActivityRepository
-import com.example.houseynative.repository.SearchActivityRepositoryImpl
+import com.example.houseynative.repository.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -20,6 +18,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth=FirebaseAuth.getInstance()
+
+    @Provides
+    fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository = impl
 
     @Provides
     fun provideFirebaseFirestore() = Firebase.firestore
