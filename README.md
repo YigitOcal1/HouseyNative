@@ -5,8 +5,9 @@
 ## TechStack
 
 - [Kotlin](https://kotlinlang.org/)
-- [MVVM Architecture](https://dart.dev/)
+- [MVVM Architecture](https://developer.android.com/topic/architecture)
 - [Dagger Hilt](https://dagger.dev/hilt/)
+- [Clean Architecture](https://proandroiddev.com/android-clean-architecture-kotlin-flow-hilt-simplest-way-415d7e0f41b)
 - [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
 - [Coroutines](https://developer.android.com/kotlin/coroutines) & [Flow](https://developer.android.com/kotlin/flow)  
