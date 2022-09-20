@@ -1,28 +1,32 @@
 package com.example.houseynative.view.searchactivity
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,11 +37,14 @@ import com.example.houseynative.components.HouseyAppBar
 import com.example.houseynative.components.InputField
 import com.example.houseynative.model.ActivityModel
 import com.example.houseynative.navigation.HouseyScreens
+import com.example.houseynative.viewmodel.SearchScreenViewModel
+import kotlinx.coroutines.job
 
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SearchActivityScreen(navController: NavController) {
+fun SearchActivityScreen(navController: NavController,
+                         viewModel: SearchScreenViewModel) {
 
 
     Scaffold(topBar = {
@@ -59,7 +66,8 @@ fun SearchActivityScreen(navController: NavController) {
                         .padding(14.dp)
                 ) {
 
-
+                searchQuery->viewModel.getSearchActivity(searchText = searchQuery)
+                }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 ActivityList(navController)
@@ -68,11 +76,11 @@ fun SearchActivityScreen(navController: NavController) {
     }
 
 
-}
 
 @Composable
 fun ActivityList(navController: NavController) {
-    val listofActivities = listOf(
+    val listOfActivities = listOf(
+        //dummy data
         ActivityModel("qwewq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
         ActivityModel("ewqqwewq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
         ActivityModel("qweqdwqdwq", "deneme", "1231", "asdadqewq", "1", "qwewqdas"),
@@ -83,7 +91,7 @@ fun ActivityList(navController: NavController) {
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp)
     ) {
-        items(items = listofActivities) { activity ->
+        items(items = listOfActivities) { activity ->
             ActivityRow(activity, navController)
         }
     }

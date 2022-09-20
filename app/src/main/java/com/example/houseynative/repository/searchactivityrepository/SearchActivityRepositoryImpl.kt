@@ -1,10 +1,9 @@
-package com.example.houseynative.repository
+package com.example.houseynative.repository.searchactivityrepository
 
 import com.example.houseynative.model.ActivityModel
 import com.example.houseynative.model.Response.*
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 

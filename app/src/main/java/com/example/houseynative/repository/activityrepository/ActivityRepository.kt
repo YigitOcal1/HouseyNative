@@ -1,4 +1,4 @@
-package com.example.houseynative.repository
+package com.example.houseynative.repository.activityrepository
 
 import com.example.houseynative.model.ActivityModel
 import com.example.houseynative.model.Response

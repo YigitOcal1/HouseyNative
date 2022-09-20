@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.houseynative.view.MainSplashScreen
-import com.example.houseynative.view.RegisterScreen
+import com.example.houseynative.view.register.RegisterScreen
 import com.example.houseynative.view.createactivity.CreateActivityScreen
 import com.example.houseynative.view.home.HomeScreen
 import com.example.houseynative.view.login.LoginScreen

@@ -1,4 +1,4 @@
-package com.example.houseynative.view
+package com.example.houseynative.view.register
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

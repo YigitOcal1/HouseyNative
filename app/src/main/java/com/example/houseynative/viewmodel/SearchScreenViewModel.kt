@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseynative.model.Response.*
-import com.example.houseynative.repository.SearchActivityRepository
-import com.example.houseynative.repository.SearchedActivitiesResponse
+import com.example.houseynative.repository.searchactivityrepository.SearchActivityRepository
+import com.example.houseynative.repository.searchactivityrepository.SearchedActivitiesResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

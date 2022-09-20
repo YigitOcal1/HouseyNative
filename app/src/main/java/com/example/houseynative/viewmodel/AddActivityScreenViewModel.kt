@@ -9,9 +9,9 @@ import com.example.houseynative.domain.use_case.UseCases
 import com.example.houseynative.model.ActivityModel
 import com.example.houseynative.model.Response
 import com.example.houseynative.model.Response.*
-import com.example.houseynative.repository.ActivitiesResponse
-import com.example.houseynative.repository.AddActivityResponse
-import com.example.houseynative.repository.DeleteActivityResponse
+import com.example.houseynative.repository.activityrepository.ActivitiesResponse
+import com.example.houseynative.repository.activityrepository.AddActivityResponse
+import com.example.houseynative.repository.activityrepository.DeleteActivityResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -40,8 +40,8 @@ class AddActivityScreenViewModel @Inject constructor(
     }
 
     private fun getActivities() = viewModelScope.launch {
-        useCases.getActivities().collect { response ->
-            activitiesResponse = response
+        useCases.getActivities().collect { response->
+            activitiesResponse=response
         }
     }
 

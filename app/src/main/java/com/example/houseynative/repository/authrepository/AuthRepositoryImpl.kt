@@ -1,24 +1,20 @@
-package com.example.houseynative.repository
+package com.example.houseynative.repository.authrepository
 
 import com.example.houseynative.model.Response.*
 import com.example.houseynative.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val db: FirebaseFirestore
 ) : AuthRepository {
 
-    override val currentUser: FirebaseUser?
-    get() = auth.currentUser
-
+    override val currentUser=auth.currentUser!=null
 
     override fun loginWithFirebase(
         email: String,

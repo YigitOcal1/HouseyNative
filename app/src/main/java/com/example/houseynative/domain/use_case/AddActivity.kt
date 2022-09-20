@@ -1,6 +1,7 @@
 package com.example.houseynative.domain.use_case
 
-import com.example.houseynative.repository.ActivityRepository
+
+import com.example.houseynative.repository.activityrepository.ActivityRepository
 
 class AddActivity(
     private val repo: ActivityRepository

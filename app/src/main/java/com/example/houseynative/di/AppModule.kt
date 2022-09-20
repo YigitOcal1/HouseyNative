@@ -3,6 +3,12 @@ package com.example.houseynative.di
 import com.example.houseynative.domain.use_case.*
 import com.example.houseynative.domain.use_case.UseCases
 import com.example.houseynative.repository.*
+import com.example.houseynative.repository.activityrepository.ActivityRepository
+import com.example.houseynative.repository.activityrepository.ActivityRepositoryImpl
+import com.example.houseynative.repository.authrepository.AuthRepository
+import com.example.houseynative.repository.authrepository.AuthRepositoryImpl
+import com.example.houseynative.repository.searchactivityrepository.SearchActivityRepository
+import com.example.houseynative.repository.searchactivityrepository.SearchActivityRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,7 +19,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -50,7 +55,7 @@ object AppModule {
     @Provides
     fun provideSearchActivityRepository(
         activitiesQuery: Query
-    ):SearchActivityRepository=SearchActivityRepositoryImpl(activitiesQuery)
+    ): SearchActivityRepository = SearchActivityRepositoryImpl(activitiesQuery)
 
 }
 
