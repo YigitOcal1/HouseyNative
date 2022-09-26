@@ -11,7 +11,6 @@ class AddActivity(
         title: String,
         date: String,
         location: String,
-        maxPeople: String,
-        ownerName: String?
-    ) = repo.addActivityToFirestore(title, date, location, maxPeople, ownerName)
+        maxPeople: String
+    ) = repo.addActivityToFirestore(title, date, location, maxPeople)
 }

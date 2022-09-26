@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class AddActivityScreenViewModel @Inject constructor(
+class CreateActivityScreenViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
 
@@ -50,9 +50,8 @@ class AddActivityScreenViewModel @Inject constructor(
         date: String,
         location: String,
         maxPeople: String,
-        ownerName: String?
     ) = viewModelScope.launch {
-        useCases.addActivity(title, date, location, maxPeople, ownerName).collect { response ->
+        useCases.addActivity(title, date, location, maxPeople).collect { response ->
             addActivityResponse = response
         }
     }

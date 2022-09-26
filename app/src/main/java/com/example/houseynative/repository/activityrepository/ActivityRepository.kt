@@ -17,8 +17,7 @@ interface ActivityRepository {
         title: String,
         date: String,
         location: String,
-        maxPeople: String,
-        ownerName: String?
+        maxPeople: String
     ): Flow<AddActivityResponse>
 
     fun deleteActivityFromFirestore(activityId: String): Flow<DeleteActivityResponse>

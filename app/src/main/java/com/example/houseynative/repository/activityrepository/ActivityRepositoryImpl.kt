@@ -20,9 +20,6 @@ import com.example.houseynative.model.Response.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
-const val ACTIVITIES_COLLECTION_REF = "activities"
-
 @Singleton
 class ActivityRepositoryImpl @Inject constructor(
     private val activitiesRef: CollectionReference
@@ -49,8 +46,8 @@ class ActivityRepositoryImpl @Inject constructor(
         title: String,
         date: String,
         location: String,
-        maxPeople: String,
-        ownerName: String?
+        maxPeople: String
+
     ) = flow {
         try {
 

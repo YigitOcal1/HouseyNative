@@ -7,6 +7,8 @@ import com.example.houseynative.repository.activityrepository.ActivityRepository
 import com.example.houseynative.repository.activityrepository.ActivityRepositoryImpl
 import com.example.houseynative.repository.authrepository.AuthRepository
 import com.example.houseynative.repository.authrepository.AuthRepositoryImpl
+import com.example.houseynative.repository.profilerepository.ProfileRepository
+import com.example.houseynative.repository.profilerepository.ProfileRepositoryImpl
 import com.example.houseynative.repository.searchactivityrepository.SearchActivityRepository
 import com.example.houseynative.repository.searchactivityrepository.SearchActivityRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -57,5 +59,7 @@ object AppModule {
         activitiesQuery: Query
     ): SearchActivityRepository = SearchActivityRepositoryImpl(activitiesQuery)
 
+    @Provides
+    fun provideProfileRepository(impl: ProfileRepositoryImpl): ProfileRepository=impl
 }
 

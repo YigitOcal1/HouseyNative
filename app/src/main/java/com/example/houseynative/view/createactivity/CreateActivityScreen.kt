@@ -53,12 +53,11 @@ fun CreateActivityScreen(
                         .padding(14.dp),
                     loading = false,
                 ) { title, date, location, maxpeople ->
-                    viewModel.createActivity(
+                    viewModel.addActivity(
                         title = title,
                         date = date,
                         location = location,
                         maxPeople = maxpeople,
-
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
